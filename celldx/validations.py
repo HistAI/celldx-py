@@ -30,6 +30,11 @@ def validate_exact_array_shape(array):
         raise TypeError("Invalid array shape")
 
 
+def validate_exact_array_shapes(arrays):
+    for array in arrays:
+        validate_exact_array_shape(array)
+
+
 def bool_validate_exact_array_shape(array):
     if len(array.shape) != 3 or array.shape[0] != 224 or array.shape[1] != 224 or array.shape[2] != 3:
         return False
