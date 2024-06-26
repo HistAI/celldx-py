@@ -39,7 +39,12 @@ def validate_array_shape_resizable(array):
 
 
 def validate_exact_array_shape(array):
-    if len(array.shape) != 3 or array.shape[0] != 224 or array.shape[1] != 224 or array.shape[2] != 3:
+    if (
+        len(array.shape) != 3
+        or array.shape[0] != 224
+        or array.shape[1] != 224
+        or array.shape[2] != 3
+    ):
         raise TypeError("Invalid array shape")
 
 
@@ -49,7 +54,12 @@ def validate_exact_array_shapes(arrays):
 
 
 def bool_validate_exact_array_shape(array):
-    if len(array.shape) != 3 or array.shape[0] != 224 or array.shape[1] != 224 or array.shape[2] != 3:
+    if (
+        len(array.shape) != 3
+        or array.shape[0] != 224
+        or array.shape[1] != 224
+        or array.shape[2] != 3
+    ):
         return False
     return True
 
@@ -57,6 +67,3 @@ def bool_validate_exact_array_shape(array):
 def validate_ndarray_dtype_uint8(array):
     if array.dtype != np.dtype("uint8"):
         raise TypeError("Invalid array dtype")
-
-
-

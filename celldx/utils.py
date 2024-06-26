@@ -1,9 +1,15 @@
 import cv2
 from .exceptions import FileReadError
 import numpy as np
-from .validations import validate_paths, validate_ndarray_dtype_uint8, validate_array_shapes_resizable, \
-    validate_array_shape_resizable, validate_exact_array_shape, bool_validate_exact_array_shape, \
-    validate_exact_array_shapes
+from .validations import (
+    validate_paths,
+    validate_ndarray_dtype_uint8,
+    validate_array_shapes_resizable,
+    validate_array_shape_resizable,
+    validate_exact_array_shape,
+    bool_validate_exact_array_shape,
+    validate_exact_array_shapes,
+)
 
 
 def read_file_cv2(path: str):
@@ -54,7 +60,7 @@ def validate_or_resize_array(arrays, resize):
 def compress_and_convert_array_to_bytes(arrays):
     compressed_arrays = list()
     for array in arrays:
-        _, compressed_array = cv2.imencode('.jpg', array, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
+        _, compressed_array = cv2.imencode(".jpg", array, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
         compressed_arrays.append(compressed_array)
     return compressed_arrays_to_bytes(compressed_arrays)
 
@@ -64,8 +70,8 @@ def compressed_arrays_to_bytes(compressed_arrays):
     for array in compressed_arrays:
         array_bytes = array.tobytes()
         length = len(array_bytes)
-        compressed_arrays_bytes.append(length.to_bytes(4, byteorder='big') + array_bytes)
-    compressed_arrays_bytes = b''.join(compressed_arrays_bytes)
+        compressed_arrays_bytes.append(length.to_bytes(4, byteorder="big") + array_bytes)
+    compressed_arrays_bytes = b"".join(compressed_arrays_bytes)
     return compressed_arrays_bytes
 
 
@@ -73,7 +79,3 @@ def convert_ndarrays_list_to_ndarray(arrays):
     for ndarr in arrays:
         validate_exact_array_shape(ndarr)
     return np.stack(arrays, 0)
-
-
-
-
