@@ -1,6 +1,19 @@
 import os
 import numpy as np
 
+from .exceptions import InputArrayLengthLimitExceeded
+
+
+ARRAY_LENGTH_LIMIT = 512
+
+
+def validate_length_limit(data):
+    if isinstance(data, list) or isinstance(data, np.ndarray):
+        if len(data) > ARRAY_LENGTH_LIMIT:
+            raise InputArrayLengthLimitExceeded("Input array length limit exceeded")
+    else:
+        raise TypeError("Invalid data type")
+
 
 def validate_paths(paths):
     for path in paths:

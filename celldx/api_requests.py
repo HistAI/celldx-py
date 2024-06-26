@@ -7,6 +7,11 @@ from .exceptions import InvalidInputData, InvalidApiKey, NotEnoughCredits, Input
 def send_request_to_inference(url, api_key, array_length, data, compression):
     rsp = requests.post(url, data=data, headers={'X-API-KEY': api_key, 'Content-Type': 'application/octet-stream'},
                         params={'array_length': array_length, 'compression': compression})
+    rsp_json = rsp.json()
+    message = ''
+    if 'detail' in rsp_json.keys():
+        message = rsp_json['detail']
+
     if rsp.status_code == 200:
         if len(rsp.content) != 4096 * array_length:
             raise requests.HTTPError
@@ -14,14 +19,14 @@ def send_request_to_inference(url, api_key, array_length, data, compression):
         return raw_array.reshape(array_length, 1024)
 
     elif rsp.status_code == 400:
-        raise InvalidInputData
+        raise InvalidInputData(message)
     elif rsp.status_code == 401:
-        raise InvalidApiKey
+        raise InvalidApiKey(message)
     elif rsp.status_code == 403:
-        raise NotEnoughCredits
+        raise NotEnoughCredits(message)
     elif rsp.status_code == 413:
-        raise InputArrayLengthLimitExceeded
+        raise InputArrayLengthLimitExceeded(message)
     elif rsp.status_code == 429:
-        raise RateLimitExceeded
+        raise RateLimitExceeded(message)
     else:
-        raise requests.HTTPError
+        raise requests.HTTPError(message)
