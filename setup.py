@@ -7,13 +7,13 @@ def readme():
 
 setup(
   name='celldx-py',
-  version='1.0.0',
+  version='1.0.1',
   author='HistAI',
   author_email='apchelnikov@hist.ai',
   description='celldx-py is the Python Library to interact with the Hibou model inference API',
   long_description=readme(),
   long_description_content_type='text/markdown',
-  url='https://celldx.hist.ai/',
+  url='https://github.com/HistAI/celldx-py',
   packages=find_packages(),
   install_requires=['requests', 'opencv-python', 'numpy'],
   classifiers=[
