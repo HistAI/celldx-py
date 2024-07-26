@@ -7,7 +7,7 @@ def readme():
 
 setup(
   name='celldx-py',
-  version='1.0.1',
+  version='1.0.2',
   author='HistAI',
   author_email='apchelnikov@hist.ai',
   description='celldx-py is the Python Library to interact with the Hibou model inference API',
