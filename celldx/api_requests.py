@@ -17,10 +17,11 @@ def send_request_to_inference(url, api_key, array_length, data, compression):
         headers={"X-API-KEY": api_key, "Content-Type": "application/octet-stream"},
         params={"array_length": array_length, "compression": compression},
     )
-    rsp_json = rsp.json()
-    message = ""
-    if "detail" in rsp_json.keys():
-        message = rsp_json["detail"]
+    if rsp.status_code != 200:
+        rsp_json = rsp.json()
+        message = ""
+        if "detail" in rsp_json.keys():
+            message = rsp_json["detail"]
 
     if rsp.status_code == 200:
         if len(rsp.content) != 4096 * array_length:
